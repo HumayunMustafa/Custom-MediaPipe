@@ -1,0 +1,1 @@
+""".bzl file for mediapipe open source build configs."""
