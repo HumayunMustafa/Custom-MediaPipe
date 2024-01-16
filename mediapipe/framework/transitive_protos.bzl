@@ -10,3 +10,24 @@ def _get_proto_rules(deps,proto_rules=None):
         transitive=[proto_rules] + [dep.proto_rules for dep in useful_deps],
     )
     return proto_rules
+
+def _proto_rules_aspect_impl(target,ctx):
+    proto_rules=depset()
+    found_cc_proto=False
+    if hasattr(ctx.rule.attr,"srcs") and len(ctx.rule.attr.srcs)==1:
+        for f in ctx.rule.attr.srcs[0].files.to_list():
+            if f.basename.endswith(".pb.cc"):
+                proto_rules=depset([target[Ccinfo]])
+                found_cc_proto=True
+                break
+    if not found_cc_proto:
+        deps=ctx.rule.atrr.deps[:] if hasattr(ctx.rule.attr,"deps") else []
+        proto_rules=_get_proto_rules(deps,proto_rules)
+    return struct(
+        proto_rules=proto_rules,
+    )
+
+proto_rules_aspect=aspect(
+    implementation=_proto_rules_aspect_impl,
+    attr_aspects=["deps"],
+)
