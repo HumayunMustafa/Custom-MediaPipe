@@ -31,3 +31,5 @@ proto_rules_aspect=aspect(
     implementation=_proto_rules_aspect_impl,
     attr_aspects=["deps"],
 )
+
+"""Worked till here"""
