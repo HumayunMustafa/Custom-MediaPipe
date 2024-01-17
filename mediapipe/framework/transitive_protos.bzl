@@ -32,4 +32,19 @@ proto_rules_aspect=aspect(
     attr_aspects=["deps"],
 )
 
-"""Worked till here"""
+def _transitive_protos_impl(ctx):
+    cc_info_sets=[]
+    for dep in ctx.attr.deps:
+        cc_info_sets.append(dep.proto_rules)
+    cc_infos=depset(transitive=cc_info_sets).to_list()
+    return [cc_common.merge_cc_infos(cc_infos=cc_infos)]
+
+transitive_protos=rule(
+    implementation=_transitive_protos_impl,
+    attrs={
+        "deps":attr.label_list(
+            aspects=[proto_rules_aspect],
+        ),
+    },
+    provides=[Ccinfo],
+)
