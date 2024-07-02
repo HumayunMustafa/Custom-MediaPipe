@@ -15,7 +15,7 @@ cc_library(
     hdrs=["calculator_state.h"],
     visibility=[":mediapipe_internal"],
     deps=[
-        "calculator_cc_proto",
+        ":calculator_cc_proto",
     ],
 )
 
