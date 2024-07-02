@@ -12,15 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-// Forked from mediapipe/framework/calculator.proto.
+// Forked from mediapipe/framework/mediapipe_options.proto.
 // The forked proto must remain identical to the original proto and should be
 // ONLY used by mediapipe open source project.
 
-syntax = "proto3";
+syntax = "proto2";
 
 package mediapipe;
 
-import public "mediapipe/framework/calculator_options.proto";
-import "google/protobuf/any.proto";
-import "mediapipe/framework/mediaipipe_options.proto";
-import "mediapipe/framework/packet_factory.proto";
+option java_package = "com.google.mediapipe.proto";
+option java_outer_classname = "MediaPipeOptionsProto";
+
+// Options used by MediaPipe object.
+message MediaPipeOptions {
+  extensions 20000 to max;
+}

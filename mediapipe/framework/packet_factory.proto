@@ -16,11 +16,30 @@
 // The forked proto must remain identical to the original proto and should be
 // ONLY used by mediapipe open source project.
 
-syntax = "proto3";
+syntax = "proto2";
 
 package mediapipe;
 
-import public "mediapipe/framework/calculator_options.proto";
-import "google/protobuf/any.proto";
-import "mediapipe/framework/mediaipipe_options.proto";
-import "mediapipe/framework/packet_factory.proto";
+option java_package = "com.google.mediapipe.proto";
+option java_outer_classname = "PacketFactoryProto";
+
+message PacketFactoryOptions {
+  extensions 20000 to max;
+}
+
+message PacketFactoryConfig{
+  // The name of the registered packet factory class
+  optional string packet_factory = 1;
+  // The name of the output side packet that this packet factory creates.
+  optional string output_side_packet = 2;
+
+  // DEPRECATED: The old name for output_side_packet.
+  optional string external_output = 1002;
+
+  // The options for the packet factory.
+  optional PacketFactoryOptions options = 3;
+}
+
+message PacketManagerConfig{
+  repeated PacketFactoryConfig packet = 1;
+}
