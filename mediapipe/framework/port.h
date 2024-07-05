@@ -1,0 +1,8 @@
+//
+// Created by MSD on 05/07/2024.
+//
+
+#ifndef CUSTOM_MEDIAPIPE_PORT_H
+#define CUSTOM_MEDIAPIPE_PORT_H
+
+#endif //CUSTOM_MEDIAPIPE_PORT_H
