@@ -9,6 +9,68 @@ package_group(
     ],
 )
 
+mediapipe_proto_library(
+    name = "calculator_proto",
+    srcs = ["calculator.proto"],
+    visibility = ["//visibility:public"],
+    deps = [
+        ":calculator_options_proto",
+        ":mediapipe_options_proto",
+        ":packet_factory_proto",
+        ":packet_generator_proto",
+        ":status_handler_proto",
+        ":stream_handler_proto",
+        "@com_google_protobuf//:any_proto",
+    ],
+)
+
+mediapipe_proto_library(
+    name = "calculator_options_proto",
+    srcs = ["calculator_options.proto"],
+    visibility = ["//visibility:public"],
+)
+
+mediapipe_proto_library(
+    name = "mediapipe_options_proto",
+    srcs = ["mediapipe_options.proto"],
+    visibility = [
+        ":mediapipe_internal_proto_users",
+    ],
+)
+
+mediapipe_proto_library(
+    name = "packet_factory_proto",
+    srcs = ["packet_factory.proto"],
+    visibility = ["//visibility:public"],
+)
+
+mediapipe_proto_library(
+    name = "packet_generator_proto",
+    srcs = ["packet_generator.proto"],
+    visibility = ["//visibility:public"],
+)
+
+mediapipe_proto_library(
+    name = "status_handler_proto",
+    srcs = ["status_handler.proto"],
+    visibility = [":mediapipe_internal_proto_users"],
+    deps = [":mediapipe_options_proto"],
+)
+
+mediapipe_proto_library(
+    name = "stream_handler_proto",
+    srcs = ["stream_handler.proto"],
+    visibility = [":mediapipe_internal_proto_users"],
+    deps = [":mediapipe_options_proto"],
+)
+
+cc_library(
+    name = "counter",
+    hdrs = ["counter.h"],
+    visibility = ["//visibility:public"],
+    deps = ["//mediapipe/framework/port:integral_types"],
+)
+
 cc_library(
     name="calculator_state",
     srcs=["calculator_state.cc"],
@@ -16,6 +78,7 @@ cc_library(
     visibility=[":mediapipe_internal"],
     deps=[
         ":calculator_cc_proto",
+        ":counter",
     ],
 )
 
