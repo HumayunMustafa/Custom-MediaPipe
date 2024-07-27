@@ -6,3 +6,18 @@
 ###############################################################################
 
 module(name = "mediapipe")
+
+http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+# ABSL on 2023-10-18
+http_archive(
+    name = "com_google_absl",
+    urls = ["https://github.com/abseil/abseil-cpp/archive//9687a8ea750bfcddf790372093245a1d041b21a3.tar.gz"],
+    patches = [
+        "@//third_party:com_google_absl_windows_patch.diff"
+    ],
+    patch_args = [
+        "-p1",
+    ],
+    strip_prefix = "abseil-cpp-9687a8ea750bfcddf790372093245a1d041b21a3",
+    sha256 = "f841f78243f179326f2a80b719f2887c38fe226d288ecdc46e2aa091e6aa43bc",
+)
