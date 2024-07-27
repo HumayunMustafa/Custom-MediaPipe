@@ -90,7 +90,14 @@ cc_library(
                    ],
                })
                ,
-    visibility = [],
+    visibility = [
+                "//fitbit/research/sensing/mobisense:__subpackages__",
+                "//mediapipe/calculators:__subpackages__",
+                "//mediapipe/framework:__subpackages__",
+                "//mediapipe/framework/port:__pkg__",
+                "//mediapipe/gpu:__pkg__",
+                "//mediapipe/util:__subpackages__",
+    ],
 )
 
 cc_library(
@@ -99,7 +106,14 @@ cc_library(
     hdrs = ["counter_factory.h"],
     visibility = ["//visibility:public"],
     deps = [":counter",
-            "",
+            ":port",
+            "//mediapipe/framework/port:integral_types",
+            "@com_google_absl//absl/base:core_headers",
+            "@com_google_absl//absl/log:absl_check",
+            "@com_google_absl//absl/log:absl_log",
+            "@com_google_absl//absl/strings",
+            "@com_google_absl//absl/synchronization",
+            "@com_google_absl//absl/time",
             ],
 )
 
