@@ -38,3 +38,27 @@ config_setting(
         "MEDIAPIPE_ENABLE_HALIDE": "1",
     },
 )
+
+cc_library(
+    name = "logging",
+    hdrs = [
+        "logging.h",
+    ],
+    deps = [
+        "//mediapipe/framework:port",
+        "//third_party:glog",
+        "@com_google_absl//absl/strings:has_ostream_operator",
+        "@com_google_absl//absl/time",
+    ],
+)
+
+cc_library(
+    name = "map_util",
+    hdrs = [
+        "map_util.h",
+    ],
+    deps = [
+        "//mediapipe/framework:port",
+        "//mediapipe/framework/deps:map_util",
+    ],
+)

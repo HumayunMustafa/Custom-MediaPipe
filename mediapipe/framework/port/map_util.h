@@ -12,20 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef CUSTOM_MEDIAPIPE_COUNTER_FACTORY_H
-#define CUSTOM_MEDIAPIPE_COUNTER_FACTORY_H
+// This file provides utility functions for use with STL map-like data
+// structures, such as std::map and hash_map. Some functions will also work with
+// sets, such as ContainsKey().
 
-#include <algorithm>
-#include <cstdint>
-#include <map>
-#include <memory>
-#include <string>
+#ifndef MEDIAPIPE_PORT_MAP_UTIL_H_
+#define MEDIAPIPE_PORT_MAP_UTIL_H_
 
-#include "absl/base/thread_annotations.h"
-#include "absl/synchronization/mutex.h"
-#include "absl/time/time.h"
-#include "mediapipe/framework/counter.h"
-#include "mediapipe/framework/port.h"
-#include "mediapipe/framework/port/map_utils.h"
+#include "mediapipe/framework/deps/map_util.h"
 
-#endif //CUSTOM_MEDIAPIPE_COUNTER_FACTORY_H
+#endif  // MEDIAPIPE_PORT_MAP_UTIL_H_
