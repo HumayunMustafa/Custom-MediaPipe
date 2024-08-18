@@ -13,3 +13,9 @@
 # limitations under the License.
 
 licenses(["notice"])
+
+exports_files(
+    "tsconfig.json",
+    "MODULE.bazel.lock",
+    "package.json",
+)

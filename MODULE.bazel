@@ -25,3 +25,17 @@ http_archive(
 bazel_dep(name = "bazel_skylib", version = "1.4.2")
 bazel_dep(name ="rules_foreign_cc" , version = "0.9.0")
 bazel_dep(name = "rules_nodejs", version = "6.2.0")
+
+# Node Dependencies
+http_archive(
+    name = "build_bazel_rules_nodejs",
+    sha256 = "94070eff79305be05b7699207fbac5d2608054dd53e6109f7d00d923919ff45a",
+    urls = ["https://github.com/bazelbuild/rules_nodejs/releases/download/5.8.2/rules_nodejs-5.8.2.tar.gz"],
+)
+
+yarn = use_repo_rule("@build_bazel_rules_nodejs//:index.bzl", "yarn_install")
+yarn (
+    name = "npm",
+    package_json = "@//:package.json",
+    yarn_lock = "@//:MODULE.bazel.lock",
+)

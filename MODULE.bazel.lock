@@ -1,6 +1,6 @@
 {
   "lockFileVersion": 3,
-  "moduleFileHash": "56092531fe27bb1af9ab0e6c56795a78f8c64d265b44e6de680269ab9463e70a",
+  "moduleFileHash": "2f39bc992467bf6a811cf6f59e860111ab321d33ebb6f4619077328baf952123",
   "flags": {
     "cmdRegistries": [
       "https://bcr.bazel.build/"
@@ -34,7 +34,9 @@
             "column": 0
           },
           "imports": {
-            "com_google_absl": "com_google_absl"
+            "com_google_absl": "com_google_absl",
+            "build_bazel_rules_nodejs": "build_bazel_rules_nodejs",
+            "npm": "npm"
           },
           "devImports": [],
           "tags": [
@@ -59,6 +61,36 @@
                 "file": "@@//:MODULE.bazel",
                 "line": 12,
                 "column": 13
+              }
+            },
+            {
+              "tagName": "@bazel_tools//tools/build_defs/repo:http.bzl%http_archive",
+              "attributeValues": {
+                "sha256": "94070eff79305be05b7699207fbac5d2608054dd53e6109f7d00d923919ff45a",
+                "urls": [
+                  "https://github.com/bazelbuild/rules_nodejs/releases/download/5.8.2/rules_nodejs-5.8.2.tar.gz"
+                ],
+                "name": "build_bazel_rules_nodejs"
+              },
+              "devDependency": false,
+              "location": {
+                "file": "@@//:MODULE.bazel",
+                "line": 30,
+                "column": 13
+              }
+            },
+            {
+              "tagName": "@build_bazel_rules_nodejs//:index.bzl%yarn_install",
+              "attributeValues": {
+                "package_json": "@//:package.json",
+                "yarn_lock": "@//:MODULE.bazel.lock",
+                "name": "npm"
+              },
+              "devDependency": false,
+              "location": {
+                "file": "@@//:MODULE.bazel",
+                "line": 37,
+                "column": 6
               }
             }
           ],
@@ -811,34 +843,6 @@
     }
   },
   "moduleExtensions": {
-    "//:MODULE.bazel%_repo_rules": {
-      "general": {
-        "bzlTransitiveDigest": "nSp+oEsTv5DYy1r8s+aEwKWUHoJDhXelRNB5mFkZmdU=",
-        "accumulatedFileDigests": {},
-        "envVariables": {},
-        "generatedRepoSpecs": {
-          "com_google_absl": {
-            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
-            "ruleClassName": "http_archive",
-            "attributes": {
-              "urls": [
-                "https://github.com/abseil/abseil-cpp/archive//9687a8ea750bfcddf790372093245a1d041b21a3.tar.gz"
-              ],
-              "patches": [
-                "@@//third_party:com_google_absl_windows_patch.diff"
-              ],
-              "patch_args": [
-                "-p1"
-              ],
-              "strip_prefix": "abseil-cpp-9687a8ea750bfcddf790372093245a1d041b21a3",
-              "sha256": "f841f78243f179326f2a80b719f2887c38fe226d288ecdc46e2aa091e6aa43bc",
-              "name": "_main~_repo_rules~com_google_absl"
-            }
-          }
-        },
-        "recordedRepoMappingEntries": []
-      }
-    },
     "@@apple_support~1.5.0//crosstool:setup.bzl%apple_cc_configure_extension": {
       "general": {
         "bzlTransitiveDigest": "pMLFCYaRPkgXPQ8vtuNkMfiHfPmRBy6QJfnid4sWfv0=",
