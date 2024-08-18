@@ -15,7 +15,7 @@
 licenses(["notice"])
 
 exports_files(
-    "tsconfig.json",
+    ["tsconfig.json",
     "MODULE.bazel.lock",
-    "package.json",
+    "package.json",]
 )
