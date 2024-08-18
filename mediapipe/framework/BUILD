@@ -131,6 +131,7 @@ cc_library(
     deps = [
         ":calculator_cc_proto", # TODO Dont know from where it is coming
         ":counter",
+        ":counter_factory"
     ],
 )
 

@@ -28,4 +28,34 @@
 #include "mediapipe/framework/port.h"
 #include "mediapipe/framework/port/map_utils.h"
 
+namespace mediapipe {
+    // Holds a map of counter names to counter unique_ptrs.
+    // This class is thread safe.
+    class CounterSet {
+    public:
+        CounterSet();
+
+        // In builds with streamz export enabled, this will synchronously export
+        // the final counter values.
+        ~CounterSet();
+
+        // Prints the values of all the counters.
+        // A call to PublishCounters will reset all counters.
+        void PrintCounters();
+
+        // Publishes the vales of all the counters for monitoring and resets
+        // all internal counters.
+        void PublishCounter();
+
+        // Adds a counter of the given type by constructing the counter in place.
+        // Returns a pointer to the new counter or if the counter already exists
+//        // to the existing pointer.
+//        template<typename CounterType, typename... Args>
+//        Counter* Emplace(const std::string& name, Args&&.. args)
+//            ABSL_LOCKS_EXCLUDED(mu_) {
+//                absl::WriterMutexLock lock(&mu_);
+//            }
+    };
+}
+
 #endif //CUSTOM_MEDIAPIPE_COUNTER_FACTORY_H
