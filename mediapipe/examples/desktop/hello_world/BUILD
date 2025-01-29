@@ -23,4 +23,3 @@ cc_binary(
         "//mediapipe/calculators/core:pass_through_calculator",
     ],
 )
-

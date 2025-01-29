@@ -13,8 +13,8 @@
 # limitations under the License.
 #
 
-load("@bazel_skylib//lib:selects.bzl", "selects")
-load("//mediapipe/framework/port:build_config.bzl", "mediapipe_proto_library")
+#load("@bazel_skylib//lib:selects.bzl", "selects")
+#load("//mediapipe/framework/port:build_config.bzl", "mediapipe_proto_library")
 
 cc_library(
     name= "pass_through_calculator",
