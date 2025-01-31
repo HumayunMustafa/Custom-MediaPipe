@@ -27,14 +27,38 @@ namespace {
     // Counter implementation when we're not using Flume.
     // TODO: Consider using Dax atomic counters instead of this.
     // This class is thread safe.
-class BasicCounter : public Counter {
-  public:
-    explicit BasicCounter(const std::string& name) : value_(0) {}
+    class BasicCounter : public Counter {
+      public:
+        explicit BasicCounter(const std::string& name) : value_(0) {}
 
-    void Increment() ABSL_LOCKS_EXCLUDED(mu_) override{
-      absl::WriterMutexLock lock(&mu_);
-      ++value_;
+        void Increment() ABSL_LOCKS_EXCLUDED(mu_) override{
+          absl::WriterMutexLock lock(&mu_);
+          ++value_;
+        }
+
+        void IncrementBy(int amount) ABSL_LOCKS_EXCLUDED(mu_) override{
+          absl::WriterMutexLock lock(&mu_);
+          ++value_;
+        }
+
+        intt64_t Get() ABSL_LOCKS_EXCLUDED(mu_) override{
+          absl::WriterMutexLock lock(&mu_);
+          return value_;
+        }
+        private:
+          absl::Mutex mu_;
+          int64_t value_ ABSL_GUARDED_BY(mu_);
+      };
+    } // namespace
+
+    CounterSet::CounterSet() {}
+    CounterSet::~CounterSet() ABSL_LOCKS_EXCLUDED(mu_) { PublishCounters(); }
+    void CounterSet::PublishCounters() ABSL_LOCKS_EXCLUDED(mu_) {}
+    void CounterSet::PrintCounters() ABSL_LOCKS_EXCLUDED(mu_) {
+      absl::ReaderMutexLock lock(&mu_);
+      ABSL_LOG_IF(INFO, !counters_.empty()) << "MediaPipe counters: ";
+      for(const aura::Counter& counter : counters_) {
+        ABSL_LOG(INFO) << counter.first << ": " << counter.second->Get();
+      }
     }
-}
-}
 }

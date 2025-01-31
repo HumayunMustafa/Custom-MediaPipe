@@ -50,7 +50,48 @@ namespace mediapipe {
         // Adds a counter of the given type by constructing the counter in place.
         // Returns a pointer to the new counter or if the counter already exists
         // to the existing pointer.
+        template <typename CounterType, typename... Args>
+        Counter* Emplace(const std::string& name, Args&&... args) ABSL_LOCKS_EXCLUDED(mu_) {
+          absl::WriterMutexLock lock(&mu_);
+          std::unique_ptr<Counter>* existing_counter = FindOrNull(counters_, name);
+          if(existing_counter) {
+            return existing_counter->get();
+          }
+          Counter* counter = new CounterType(std::forward<Args>(args)...);
+          counters_[name].reset(counter);
+          return counter;
+        }
+
+        // Retrieves the counter with the given name; return nullptr if it doesn't
+        // exist.
+        Couneter* Get(const std::string& name);
+
+        // Retrieves all counters names and current values from the internal map.
+        std::map<std::string, int64_t> GetCountersValues() ABSL_LOCKS_EXCLUDED(mu_);
+
+        private:
+          absl::Mutex mu_;
+          std::map<std::string, std::unique_ptr<Counter>> counters_ ABSL_GUARDED_BY(mu_);
     };
-}
+
+    // Generic counter factory
+    class CounterFactory {
+        public:
+          virtual ~CounterFactory() {}
+          virtual Counter* GetCounter(const std::string& name) = 0;
+          CounterSet* GetCounterSet() { return &counter_set_;}
+
+        protected:
+          CounterSet counter_set_;
+    };
+
+    // Counter factory that makes the counters be our own basic counters.
+    class BasicCounterFactory : public CounterFactory {
+      public:
+        ~BasicCounterFactory() override {}
+        Counter* GetCounter(const std::string& name) override;
+    };
+
+} // namespace mediapipe
 
 #endif //CUSTOM_MEDIAPIPE_COUNTER_FACTORY_H
