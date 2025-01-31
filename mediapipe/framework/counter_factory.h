@@ -26,7 +26,7 @@
 #include "absl/time/time.h"
 #include "mediapipe/framework/counter.h"
 #include "mediapipe/framework/port.h"
-#include "mediapipe/framework/port/map_utils.h"
+#include "mediapipe/framework/port/map_util s.h"
 
 namespace mediapipe {
     // Holds a map of counter names to counter unique_ptrs.
@@ -49,12 +49,7 @@ namespace mediapipe {
 
         // Adds a counter of the given type by constructing the counter in place.
         // Returns a pointer to the new counter or if the counter already exists
-//        // to the existing pointer.
-//        template<typename CounterType, typename... Args>
-//        Counter* Emplace(const std::string& name, Args&&.. args)
-//            ABSL_LOCKS_EXCLUDED(mu_) {
-//                absl::WriterMutexLock lock(&mu_);
-//            }
+        // to the existing pointer.
     };
 }
 
