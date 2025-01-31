@@ -26,7 +26,7 @@
 #include "absl/time/time.h"
 #include "mediapipe/framework/counter.h"
 #include "mediapipe/framework/port.h"
-#include "mediapipe/framework/port/map_util s.h"
+#include "mediapipe/framework/port/map_utils.h"
 
 namespace mediapipe {
     // Holds a map of counter names to counter unique_ptrs.

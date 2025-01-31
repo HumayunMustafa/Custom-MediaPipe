@@ -52,8 +52,11 @@ namespace {
     } // namespace
 
     CounterSet::CounterSet() {}
+
     CounterSet::~CounterSet() ABSL_LOCKS_EXCLUDED(mu_) { PublishCounters(); }
+
     void CounterSet::PublishCounters() ABSL_LOCKS_EXCLUDED(mu_) {}
+
     void CounterSet::PrintCounters() ABSL_LOCKS_EXCLUDED(mu_) {
       absl::ReaderMutexLock lock(&mu_);
       ABSL_LOG_IF(INFO, !counters_.empty()) << "MediaPipe counters: ";
@@ -61,4 +64,26 @@ namespace {
         ABSL_LOG(INFO) << counter.first << ": " << counter.second->Get();
       }
     }
-}
+
+    Counter* CounterSet::Get(const std::string& name) ABSL_LOCKS_EXCLUDED(mu_) {
+      absl::ReaderMutexLock lock(&mu_);
+      if(!mediapipe::ContainsKey(counters_, name)) {
+        return nullptr;
+      }
+      return counters_[name].get();
+    }
+
+    std::map<std::string, int64_t> CounterSet::GetCountersValues()
+    ABSL_LOCKS_EXCLUDED(mu_) {
+      absl::ReaderMutexLock lock(&mu_);
+      std::map<std::string, int64_t> result;
+      for (const auto& it : counters_) {
+        result[it.first] = it.second->Get();
+      }
+      return result;
+    }
+
+  Counter* BasicCounterFactory::GetCounter(const std::string& name) {
+    return counter_set_.Emplace<BasicCounter>(name, name);
+  }
+} // mediapipe
