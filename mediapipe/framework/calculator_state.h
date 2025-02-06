@@ -24,4 +24,8 @@
 #include "mediapipe/framework/resources.h"
 #include "mediapipe/framework/tool/options_map.h"
 
+namespace mediapipe {
+ class ProfilingContext;
+}
+
 #endif //CUSTOM_MEDIAPIPE_CALCULATOR_STATE_H

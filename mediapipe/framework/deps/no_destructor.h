@@ -69,8 +69,16 @@ namespace mediapipe {
         // Forwards arguments to the T's constructor: calls T(args...).
         template <typename... Ts,
                   // Disable this overload when it might collide with copy/move.
-                  typename std::enable_if<sizeof...(Ts) == sizeof...(Ts)>::type* = nullptr>
-    }
+                  typename std::enable_if<!std::is_same<void(typename std::decay<Ts>::type...),
+                                                        void(NoDestructor)>::value,
+                  int>::type = 0>
+        explicit NoDestructor(Ts&&... ts) {
+          new (_space) T(std::forward<Ts>(ts)...);
+        }
+	 private:
+           alignas(T) char _space[sizeof(T)];
+
+    };
 }
 
 #endif //NO_DESTRUCTOR_H
