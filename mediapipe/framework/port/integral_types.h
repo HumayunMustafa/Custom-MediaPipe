@@ -2,9 +2,6 @@
 // Created by MSD on 27/07/2024.
 //
 
-#ifndef CUSTOM_MEDIAPIPE_INTEGRAL_TYPES_H
-#define CUSTOM_MEDIAPIPE_INTEGRAL_TYPES_H
-
 // Copyright 2019 The MediaPipe Authors.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -71,5 +68,3 @@ namespace mediapipe {
 }  // namespace mediapipe
 
 #endif  // MEDIAPIPE_PORT_INTEGRAL_TYPES_H_
-
-#endif //CUSTOM_MEDIAPIPE_INTEGRAL_TYPES_H
