@@ -60,6 +60,20 @@ config_setting(
 )
 
 cc_library(
+    name = "graph_service",
+    hdrs = ["graph_service.h"],
+    visibility = ["//visibility:public"],
+    deps = [
+        ":packet",
+        "//mediapipe/framework/port:status",
+        "//mediapipe/framework/port:statusor",
+        "@com_google_absl//absl/base:core_headers",
+        "@com_google_absl//absl/log:absl_check",
+        "@com_google_absl//absl/strings",
+    ]
+)
+
+cc_library(
     name = "port",
     hdrs = ["port.h"],
     defines = select({
@@ -131,7 +145,8 @@ cc_library(
     deps = [
         ":calculator_cc_proto", # TODO Dont know from where it is coming
         ":counter",
-        ":counter_factory"
+        ":counter_factory",
+        ":graph_service"
     ],
 )
 
